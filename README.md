@@ -1,5 +1,7 @@
 # LDJ mobile app
 
+![Logo LDJ](assets/ldj-logo.png)
+
 This Capacitor project packages the existing LDJ interface for Android and iOS.
 The HTML interface and a bundled Lottie intro animation are bundled locally; Tailwind CSS,
 Font Awesome, and Lottie no longer need to be downloaded from a CDN at runtime.
