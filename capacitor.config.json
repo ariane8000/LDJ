@@ -1,0 +1,12 @@
+{
+  "appId": "com.ldj.anonyme",
+  "appName": "LDJ",
+  "webDir": "www",
+  "backgroundColor": "#07090c",
+  "android": {
+    "allowMixedContent": false
+  },
+  "ios": {
+    "contentInset": "automatic"
+  }
+}

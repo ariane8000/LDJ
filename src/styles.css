@@ -1,0 +1,16 @@
+@import "tailwindcss" source(none);
+@source "./index.html";
+
+@theme {
+  --color-brand-primary: #ff1744;
+  --color-brand-hover: #d50032;
+  --color-brand-accent: #00e676;
+  --color-brand-glow: rgba(255, 23, 68, 0.45);
+  --color-surface-base: #0c0e12;
+  --color-surface-card: #161920;
+  --color-surface-elevated: #1f232d;
+  --color-surface-border: #2a2f3d;
+  --font-syne: "Trebuchet MS", sans-serif;
+  --font-sans: system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+}
