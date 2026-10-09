@@ -1,0 +1,2 @@
+- `[x]` Mettre à jour `.idea/LDJ.iml` pour exclure les dossiers `node_modules`, `www`, `build`, etc. des inspections Android Studio
+- `[x]` Demander à l'utilisateur de synchroniser / recharger le projet dans Android Studio
