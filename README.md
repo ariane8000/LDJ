@@ -84,9 +84,17 @@ Une URL publique ne suffit pas à distribuer les messages : il faut également u
 
 ## Publicités et paiements
 
-Aucun SDK publicitaire, aucune requête publicitaire, aucun abonnement et aucun paiement réel ne sont activés dans ce projet. L’intégration AdMob et les clés de paiement/publicité seront ajoutées ultérieurement lorsque les identifiants et la configuration auront été fournis. Le prix hebdomadaire créateur et le paywall de localisation sont uniquement informatifs dans le prototype.
+Aucun SDK publicitaire, abonnement ou paiement réel n’est activé. Les mentions d’une offre créateur à **3 $/semaine** et d’un accès payant à la localisation sont des pistes de prototype, pas des produits définis : il n’existe ni écran d’achat actif, ni fonctionnalité premium opérationnelle, ni serveur LDJ configuré. Aucun utilisateur ne doit être débité pour ces options en l’état.
 
-Avant d’ajouter une monétisation, choisissez séparément le réseau publicitaire et le prestataire de paiement, renseignez leurs identifiants, puis complétez les règles de consentement, de facturation des stores et de confidentialité.
+### Stratégie de paiement recommandée
+
+Pour des fonctionnalités numériques vendues dans les applications iOS et Android, utiliser la facturation native de chaque boutique (StoreKit / App Store In‑App Purchase sur iOS et Google Play Billing sur Android). Ces boutiques prennent en charge les méthodes de paiement proposées localement à l’utilisateur — notamment les cartes quand elles sont disponibles — ainsi que les reçus, remboursements et restaurations. La disponibilité des pays et moyens de paiement dépend des boutiques et du pays du compte marchand : aucun prestataire ne peut garantir une couverture de tous les pays. Un paiement direct par carte (par exemple Stripe Checkout) ne doit pas remplacer la facturation intégrée pour ces biens numériques, sauf exception régionale et éligibilité explicitement validées.
+
+Pour simplifier la validation des reçus et l’état d’abonnement multiplateforme, RevenueCat est une option d’orchestration envisageable au-dessus de StoreKit et Google Play Billing ; il faut d’abord créer/configurer le projet RevenueCat, les produits correspondants dans App Store Connect et Play Console, les droits (entitlements), et les clés publiques de chaque application. Aucun identifiant ou secret ne peut être déduit de ce dépôt.
+
+Références : [règles App Review d’Apple, section 3.1](https://developer.apple.com/app-store/review/guidelines/) · [règles de paiement Google Play](https://support.google.com/googleplay/android-developer/answer/10281818) · [installation Capacitor de RevenueCat](https://www.revenuecat.com/docs/getting-started/installation/capacitor).
+
+Avant d’activer une vente, il faut définir précisément ce que débloque l’offre créateur et l’option de localisation, confirmer leur prix et leur durée, établir la politique de confidentialité et de résiliation, configurer les produits dans les deux boutiques, ajouter un backend et la validation des droits si ces derniers contrôlent des fonctions distantes, puis tester achats, annulations, remboursements et restauration sur les deux plateformes. Le tarif de 3 $/semaine reste à confirmer et n’est pas un tarif d’achat affiché par l’application.
 
 Le fichier `.env.example` contient uniquement des emplacements de configuration. Il n’est pas chargé par l’application : ne commitez jamais de secrets, de clés privées ou d’identifiants réels.
 

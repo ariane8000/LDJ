@@ -80,16 +80,20 @@
       transform: translateY(0);
     }
     #view-boite.backend-unavailable > :not(.inbox-server-notice) { display: none; }
-    button:not(:disabled), a[href], summary, [role="button"], [onclick] {
-      transition: transform .18s ease;
+    button:not(:disabled), a[href], summary, [role="button"], [onclick], [tabindex="0"] {
+      transition: scale .18s ease, box-shadow .18s ease;
     }
     @media (hover:hover) {
-      button:not(:disabled):hover, a[href]:hover, summary:hover, [role="button"]:hover, [onclick]:hover {
-        transform: scale(1.025);
+      button:not(:disabled):hover, a[href]:hover, summary:hover, [role="button"]:hover, [onclick]:hover, [tabindex="0"]:hover {
+        scale: 1.025;
       }
     }
-    button:not(:disabled):active, a[href]:active, summary:active, [role="button"]:active, [onclick]:active {
-      transform: scale(.975);
+    button:not(:disabled):active, a[href]:active, summary:active, [role="button"]:active, [onclick]:active, [tabindex="0"]:active {
+      scale: .975;
+    }
+    button:not(:disabled):focus-visible, a[href]:focus-visible, summary:focus-visible, [role="button"]:focus-visible, [onclick]:focus-visible, [tabindex="0"]:focus-visible {
+      outline: 2px solid #ff7190;
+      outline-offset: 3px;
     }
     #ldj-intro {
       position: fixed;
@@ -114,8 +118,11 @@
       overflow: auto;
     }
     #ldj-onboarding.active { display: flex; }
-    #ldj-onboarding.language-only { padding: 24px; }
+    #ldj-onboarding.language-only { padding: 24px; flex-direction: column; gap: 14px; }
     #ldj-onboarding.language-only .onboarding-form { display: none; }
+    .language-picker-heading { width: min(100%, 390px); text-align: center; }
+    .language-picker-heading h1 { margin: 0 0 6px; color: #fff; font: 800 22px system-ui, sans-serif; }
+    .language-picker-heading p { margin: 0; color: #a1a1aa; font: 12px/1.5 system-ui, sans-serif; }
     .onboarding-form {
       width: min(100%, 430px);
       max-height: 92vh;
@@ -133,9 +140,16 @@
       background: #1f232d;
       color: #fff;
       font: 800 15px system-ui, sans-serif;
-      letter-spacing: .12em;
+      letter-spacing: .04em;
     }
-    .language-choice:first-child { background: linear-gradient(110deg,#ff1744,#ff4081); }
+    .language-choice { opacity: 0; animation: languageCardIn .38s cubic-bezier(.2,.8,.2,1) forwards; }
+    .language-choice[data-language="fr"] { background: linear-gradient(110deg,#ff1744,#ff4081); }
+    .language-choice[data-language="en"] { background: #1f232d; animation-delay: .09s; }
+    .language-choice:hover, .language-choice:focus-visible { box-shadow: 0 12px 32px rgba(255,23,68,.2); }
+    @keyframes languageCardIn {
+      from { opacity: 0; transform: translateY(10px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
     #ldj-onboarding:not(.language-only) .language-choice { display: none; }
     .onboarding-glow { animation: welcomeZoom 2s ease-in-out infinite; }
     @keyframes welcomeZoom {
@@ -1036,7 +1050,8 @@
       'Utilisateur simple ou influenceur': 'Regular user or creator',
       'Homme': 'Man', 'Femme': 'Woman', 'Âge (non public)': 'Age (not public)',
       'Pseudo anonyme': 'Anonymous username', 'Créer mon profil': 'Create my profile',
-      'Choisis une langue': 'Choose a language',
+      'Choisis une langue': 'Choose a language', 'Choisis ta langue': 'Choose your language',
+      'Sélectionne la langue à utiliser dans LDJ. Tu pourras la modifier dans les paramètres.': 'Choose the language to use in LDJ. You can change it later in Settings.',
       'Avant de commencer': 'Before you start',
       'Crée un profil local avec un pseudo pour découvrir LDJ. Les messages entre appareils nécessitent un serveur LDJ.': 'Create a local profile with a username to explore LDJ. Messaging between devices requires an LDJ server.',
       'Le micro est utilisé uniquement lorsque tu choisis d’enregistrer un vocal. La localisation n’est pas transmise : le serveur LDJ n’est pas configuré.': 'Your microphone is used only when you choose to record a voice message. Your location is not sent because the LDJ server is not configured.',
@@ -1447,8 +1462,10 @@
       const gate = document.getElementById('ldj-onboarding');
       gate.className = 'active language-only';
       gate.innerHTML =
-        '<button type="button" class="language-choice" onclick="chooseAppLanguage(\'fr\')">FRENCH</button>' +
-        '<button type="button" class="language-choice" onclick="chooseAppLanguage(\'en\')">ENGLISH</button>';
+        '<div class="language-picker-heading"><h1>Choisis ta langue</h1><p>Sélectionne la langue à utiliser dans LDJ. Tu pourras la modifier dans les paramètres.</p></div>' +
+        '<button type="button" class="language-choice" data-language="fr" aria-label="Français" onclick="chooseAppLanguage(\'fr\')">Français</button>' +
+        '<button type="button" class="language-choice" data-language="en" aria-label="English" onclick="chooseAppLanguage(\'en\')">English</button>';
+      applyLanguage(currentLanguage());
     }
 
     function chooseAppLanguage(language) {
