@@ -62,6 +62,15 @@ L’image principale se trouve dans `assets/ldj-logo.png`. Elle est également u
 
 Si le logo doit être remplacé, régénérez les différentes tailles natives à partir d’une image carrée, puis relancez `npm run sync`.
 
+## Effets vocaux et localisation
+
+Le modal d’enregistrement propose deux effets d’aperçu traités sur l’appareil :
+
+- **Voix grave** : lecture ralentie et renforcement des basses ;
+- **Voix aiguë** : lecture accélérée et renforcement de la présence.
+
+Le partage de localisation est facultatif. La permission Android/iOS n’est demandée qu’après activation explicite de la case correspondante. La position est arrondie à environ 5 km et reste en mémoire sur l’appareil ; elle n’est pas envoyée tant que le backend LDJ n’est pas configuré.
+
 ## Permissions et confidentialité
 
 - Le microphone est utilisé uniquement lorsqu’une personne choisit d’enregistrer un message vocal.
@@ -75,7 +84,7 @@ Une URL publique ne suffit pas à distribuer les messages : il faut également u
 
 ## Publicités et paiements
 
-Aucun SDK publicitaire, aucune requête publicitaire, aucun abonnement et aucun paiement réel ne sont activés dans ce projet. Le prix hebdomadaire créateur et le paywall de localisation sont uniquement informatifs dans le prototype.
+Aucun SDK publicitaire, aucune requête publicitaire, aucun abonnement et aucun paiement réel ne sont activés dans ce projet. L’intégration AdMob et les clés de paiement/publicité seront ajoutées ultérieurement lorsque les identifiants et la configuration auront été fournis. Le prix hebdomadaire créateur et le paywall de localisation sont uniquement informatifs dans le prototype.
 
 Avant d’ajouter une monétisation, choisissez séparément le réseau publicitaire et le prestataire de paiement, renseignez leurs identifiants, puis complétez les règles de consentement, de facturation des stores et de confidentialité.
 
